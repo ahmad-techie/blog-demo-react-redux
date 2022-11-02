@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 
 const FETCH_POST = "FETCH_POST";
 const ADD_POST = "ADD_POST";
+const DELETE_POST = "DELETE_POST";
 
 const initialPostState = [];
 
@@ -12,9 +13,18 @@ const postReducer = (state = initialPostState, action) => {
       return action.paylaod;
     case ADD_POST:
       return [...state, action.paylaod];
+    case DELETE_POST:
+      return state.filter((post) => post.id != action.paylaod);
     default:
       return state;
   }
+};
+
+export const deletePost = (postId) => {
+  return {
+    type: DELETE_POST,
+    paylaod: postId,
+  };
 };
 
 const addPost = (post) => {
